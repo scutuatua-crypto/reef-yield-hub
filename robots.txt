@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://scutuatua-crypto.github.io/reef-yield-hub/sitemap.xml
