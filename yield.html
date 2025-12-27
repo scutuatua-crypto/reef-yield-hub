@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeFi Yields - Reef Yield Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: rgba(255,255,255,0.3);
+        }
+        .yields-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .yield-card {
+            background: rgba(255,255,255,0.15);
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        .yield-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.2);
+        }
+        .protocol-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .protocol-name {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .protocol-icon {
+            font-size: 32px;
+        }
+        .apy {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #4ade80;
+        }
+        .chain-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            font-size: 13px;
+            margin: 5px 5px 5px 0;
+        }
+        .asset-info {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .risk-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .risk-low { background: #4ade80; color: #000; }
+        .risk-medium { background: #fbbf24; color: #000; }
+        .risk-high { background: #ef4444; color: #fff; }
+        .earnings-calc {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            margin-top: 40px;
+        }
+        .calc-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .calc-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 10px;
+            border: none;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        .calc-input::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+        .calc-result {
+            text-align: center;
+            font-size: 20px;
+            padding: 20px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+        }
+        .calc-result strong {
+            font-size: 32px;
+            display: block;
+            margin-top: 10px;
+            color: #4ade80;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <div class="header">
+            <h1>🐠 DeFi Yields Dashboard</h1>
+            <p>Best opportunities for your passive income strategy</p>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterAll()">All Protocols</button>
+            <button class="filter-btn" onclick="filterChain('Ethereum')">Ethereum</button>
+            <button class="filter-btn" onclick="filterChain('Polygon')">Polygon</button>
+            <button class="filter-btn" onclick="filterChain('Arbitrum')">Arbitrum</button>
+        </div>
+
+        <div class="yields-grid" id="yieldsGrid">
+            <!-- Curve Finance -->
+            <div class="yield-card" data-chain="Polygon">
+                <div class="protocol-header">
+                    <div class="protocol-name">Curve Finance</div>
+                    <div class="protocol-icon">🔵</div>
+                </div>
+                <div class="apy">9.8% APY</div>
+                <div class="chain-badge">Polygon</div>
+                <div class="asset-info">
+                    <strong>Asset:</strong> USDC/USDT LP<br>
+                    <strong>TVL:</strong> $245M<br>
+                    <span class="risk-badge risk-low">Low Risk</span>
+                </div>
+            </div>
+
+            <!-- Aave -->
+            <div class="yield-card" data-chain="Ethereum">
+                <div class="protocol-header">
+                    <div class="protocol-name">Aave</div>
+                    <div class="protocol-icon">👻</div>
+                </div>
+                <div class="apy">7.5% APY</div>
+                <div class="chain-badge">Ethereum</div>
+                <div class="asset-info">
+                    <strong>Asset:</strong> USDC Lending<br>
+                    <strong>TVL:</strong> $5.2B<br>
+                    <span class="risk-badge risk-low">Low Risk</span>
+                </div>
+            </div>
+
+            <!-- Compound -->
+            <div class="yield-card" data-chain="Ethereum">
+                <div class="protocol-header">
+                    <div class="protocol-name">Compound</div>
+                    <div class="protocol-icon">🏦</div>
+                </div>
+                <div class="apy">6.2% APY</div>
+                <div class="chain-badge">Ethereum</div>
+                <div class="asset-info">
+                    <strong>Asset:</strong> DAI Lending<br>
+                    <strong>TVL:</strong> $3.8B<br>
+                    <span class="risk-badge risk-low">Low Risk</span>
+                </div>
+            </div>
+
+            <!-- Uniswap V3 -->
+            <div class="yield-card" data-chain="Arbitrum">
+                <div class="protocol-header">
+                    <div class="protocol-name">Uniswap V3</div>
+                    <div class="protocol-icon">🦄</div>
+                </div>
+                <div class="apy">8.4% APY</div>
+                <div class="chain-badge">Arbitrum</div>
+                <div class="asset-info">
+                    <strong>Asset:</strong> ETH/USDC LP<br>
+                    <strong>TVL:</strong> $1.9B<br>
+                    <span class="risk-badge risk-medium">Medium Risk</span>
+                </div>
+            </div>
+
+            <!-- Yearn Finance -->
+            <div class="yield-card" data-chain="Ethereum">
+                <div class="protocol-header">
+                    <div class="protocol-name">Yearn</div>
+                    <div class="protocol-icon">💙</div>
+                </div>
+                <div class="apy">5.8% APY</div>
+                <div class="chain-badge">Ethereum</div>
+                <div class="asset-info">
+                    <strong>Asset:</strong> USDC Vault<br>
+                    <strong>TVL:</strong> $450M<br>
+                    <span class="risk-badge risk-low">Low Risk</span>
+                </div>
+            </div>
+
+            <!-- Balancer -->
+            <div class="yield-card" data-chain="Polygon">
+                <div class="protocol-header">
+                    <div class="protocol-name">Balancer</div>
+                    <div class="protocol-icon">⚖️</div>
+                </div>
+                <div class="apy">7.9% APY</div>
+                <div class="chain-badge">Polygon</div>
+                <div class="asset-info">
+                    <strong>Asset:</strong> Stable Pool<br>
+                    <strong>TVL:</strong> $680M<br>
+                    <span class="risk-badge risk-low">Low Risk</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="earnings-calc">
+            <div class="calc-title">💰 Calculate Your Earnings</div>
+            <input 
+                type="number" 
+                class="calc-input" 
+                id="investAmount" 
+                placeholder="Enter investment amount (e.g., 500)" 
+                value="500"
+                oninput="calculateEarnings()"
+            >
+            <div class="calc-result" id="calcResult">
+                With <strong>$500</strong> at <strong>9.8% APY</strong> (Curve)<br>
+                You'll earn: <strong>$49/year</strong> or <strong>$4.08/month</strong>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterAll() {
+            document.querySelectorAll('.yield-card').forEach(card => {
+                card.style.display = 'block';
+            });
+            updateActiveFilter(event.target);
+        }
+
+        function filterChain(chain) {
+            document.querySelectorAll('.yield-card').forEach(card => {
+                if (card.dataset.chain === chain) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            updateActiveFilter(event.target);
+        }
+
+        function updateActiveFilter(target) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            target.classList.add('active');
+        }
+
+        function calculateEarnings() {
+            const amount = parseFloat(document.getElementById('investAmount').value) || 500;
+            const apy = 9.8;
+            const yearlyEarnings = amount * (apy / 100);
+            const monthlyEarnings = yearlyEarnings / 12;
+            
+            document.getElementById('calcResult').innerHTML = `
+                With <strong>$${amount.toLocaleString()}</strong> at <strong>${apy}% APY</strong> (Curve)<br>
+                You'll earn: <strong>$${yearlyEarnings.toFixed(2)}/year</strong> or <strong>$${monthlyEarnings.toFixed(2)}/month</strong>
+            `;
+        }
+
+        // Initialize
+        calculateEarnings();
+    </script>
+</body>
+</html>
