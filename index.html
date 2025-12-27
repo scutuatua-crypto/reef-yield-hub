@@ -1,1 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reef Yield Hub 🐠 DeFi Yields Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            text-align: center;
+        }
+        .reef-icon {
+            font-size: 120px;
+            animation: float 3s ease-in-out infinite;
+            display: inline-block;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        h1 {
+            font-size: 56px;
+            margin: 30px 0 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            background: linear-gradient(to right, #fff, #a8edea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            font-size: 26px;
+            margin-bottom: 20px;
+            opacity: 0.95;
+        }
+        .description {
+            font-size: 19px;
+            margin-bottom: 45px;
+            opacity: 0.85;
+            line-height: 1.7;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 20px 50px;
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+        .cta-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        .features {
+            margin-top: 70px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+        .feature {
+            background: rgba(255,255,255,0.15);
+            padding: 30px 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        .feature:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.2);
+        }
+        .feature-icon {
+            font-size: 50px;
+            margin-bottom: 18px;
+        }
+        .feature-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+        .feature-desc {
+            font-size: 15px;
+            opacity: 0.85;
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 40px; }
+            .subtitle { font-size: 22px; }
+            .reef-icon { font-size: 90px; }
+            .cta-button { font-size: 18px; padding: 16px 40px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="reef-icon">🐠</div>
+        <h1>Reef Yield Hub</h1>
+        <div class="subtitle">💎 Dive Deep into DeFi Yields</div>
+        <div class="description">
+            Your complete dashboard for tracking the best DeFi yields across all major protocols.<br>
+            Find the perfect strategy for your $500 passive income journey!
+        </div>
+        
+        <div>
+            <a href="yields.html" class="cta-button">
+                Explore Yields 📊
+            </a>
+            <a href="#features" class="cta-button cta-secondary">
+                Learn More 📚
+            </a>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-number">15+</span>
+                <span class="stat-label">DeFi Protocols</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">9.8%</span>
+                <span class="stat-label">Best APY</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">5</span>
+                <span class="stat-label">Blockchains</span>
+            </div>
+        </div>
+        
+        <div class="features" id="features">
+            <div class="feature">
+                <div class="feature-icon">🎯</div>
+                <div class="feature-title">Best Rates</div>
+                <div class="feature-desc">Compare APY across Curve, Aave, Compound & more</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title">Real-time</div>
+                <div class="feature-desc">Live yield data updated every minute</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-title">Safe Assets</div>
+                <div class="feature-desc">Focus on stablecoin strategies</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌐</div>
+                <div class="feature-title">Multi-chain</div>
+                <div class="feature-desc">Ethereum, Polygon, Arbitrum & more</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
 
