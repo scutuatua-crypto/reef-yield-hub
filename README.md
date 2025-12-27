@@ -44,7 +44,9 @@ With $500 invested at 9.8% APY:
 
 ## 🌊 Dive into DeFi!
 
-Visit: [whaletrucker-reef.com](https://whaletrucker-reef.com)
+## 🌊 Dive into DeFi!
+
+Visit: [scutuatua-crypto.github.io/reef-yield-hub](https://scutuatua-crypto.github.io/reef-yield-hub/)
 
 ---
 
